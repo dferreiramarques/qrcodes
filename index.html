@@ -2,24 +2,33 @@
 <html lang="pt" data-theme="dark" data-brand="blue">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Gerador de QR Code</title>
-<meta name="version" content="2.0">
+<meta name="version" content="2.1">
 <meta name="theme-color" content="#141414">
 <link rel="stylesheet" href="./ds/ds.css">
 <style>
-  /* App-specific overrides — nunca editar ds.css */
+  /* App-specific overrides — nunca editar ds.css. Mobile-first: estilos base
+     pensados para ecrãs pequenos, com ajustes progressivos a partir daqui. */
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
   body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
+  .f-topbar {
+    padding-left: max(var(--f-space-4), env(safe-area-inset-left));
+    padding-right: max(var(--f-space-4), env(safe-area-inset-right));
+  }
   .app {
     flex: 1;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--f-space-6) var(--f-space-4);
+    padding: var(--f-space-5) var(--f-space-4);
+    padding-bottom: max(var(--f-space-5), env(safe-area-inset-bottom));
   }
   .qr-card {
     width: 100%;
@@ -27,12 +36,16 @@
     text-align: center;
   }
   .qr-card h1 {
-    font-size: var(--f-text-2xl);
+    font-size: var(--f-text-xl);
     margin: 0 0 var(--f-space-5);
   }
   .f-field {
     text-align: left;
     margin-bottom: var(--f-space-4);
+  }
+  /* 16px evita zoom automático no iOS ao focar o campo */
+  #urlInput {
+    font-size: 16px;
   }
   #qrcode {
     margin-top: var(--f-space-5);
@@ -41,6 +54,8 @@
   }
   #qrcode canvas,
   #qrcode img {
+    max-width: 100%;
+    height: auto;
     border-radius: var(--f-r8);
     border: 1px solid var(--f-stroke2);
   }
@@ -49,8 +64,14 @@
     margin-top: var(--f-space-5);
     justify-content: center;
   }
-  .f-btn-generate {
+  .f-btn-generate,
+  .download-section .f-btn {
     width: 100%;
+    min-height: 44px; /* alvo de toque confortável em mobile */
+  }
+  @media (min-width: 480px) {
+    .qr-card h1 { font-size: var(--f-text-2xl); }
+    .app { padding: var(--f-space-6) var(--f-space-4); }
   }
 </style>
 </head>
@@ -147,28 +168,22 @@
       return;
     }
 
-    // Gera uma versão à parte, no dobro da resolução, só para o download
-    var hiResContainer = document.createElement('div');
-    hiResContainer.style.display = 'none';
-    document.body.appendChild(hiResContainer);
+    // Redesenha o QR já gerado para um canvas maior (mínimo 400x400),
+    // em vez de depender da biblioteca criar um segundo QR num
+    // container escondido — assim garantimos sempre o tamanho exato.
+    var targetSize = BASE_SIZE * DOWNLOAD_SCALE;
+    var hiResCanvas = document.createElement('canvas');
+    hiResCanvas.width = targetSize;
+    hiResCanvas.height = targetSize;
 
-    new QRCode(hiResContainer, {
-      text: url,
-      width: BASE_SIZE * DOWNLOAD_SCALE,
-      height: BASE_SIZE * DOWNLOAD_SCALE,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
-
-    var hiResCanvas = hiResContainer.querySelector('canvas');
+    var ctx = hiResCanvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false; // mantém os módulos nítidos, sem desfoque
+    ctx.drawImage(displayedCanvas, 0, 0, targetSize, targetSize);
 
     var link = document.createElement('a');
     link.download = buildFilename(url);
     link.href = hiResCanvas.toDataURL('image/png');
     link.click();
-
-    document.body.removeChild(hiResContainer);
   }
 
   document.getElementById('urlInput').addEventListener('keypress', function (e) {
