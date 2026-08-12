@@ -1,0 +1,154 @@
+/* ==========================================================================
+   DM Design System — Tokens
+   Figtree + Fluent 2 · Every value in the system lives here.
+   Override any token in your own stylesheet; never edit this file per-project.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  /* ── Typeface ─────────────────────────────────────────────────── */
+  --f-font: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ── Type scale ───────────────────────────────────────────────── */
+  --f-text-xs:   0.6875rem;  /* 11px — labels, meta, timestamps      */
+  --f-text-sm:   0.75rem;    /* 12px — chips, badges, hints          */
+  --f-text-base: 0.875rem;   /* 14px — body, inputs                  */
+  --f-text-md:   1rem;       /* 16px — secondary body                */
+  --f-text-lg:   1.125rem;   /* 18px — section titles                */
+  --f-text-xl:   1.25rem;    /* 20px — panel titles                  */
+  --f-text-2xl:  1.5rem;     /* 24px — page titles                   */
+  --f-text-3xl:  2rem;       /* 32px — hero titles                   */
+
+  --f-weight-light:    300;
+  --f-weight-regular:  400;
+  --f-weight-medium:   500;
+  --f-weight-semibold: 600;
+  --f-weight-bold:     700;
+  --f-weight-black:    800;
+
+  --f-leading-tight: 1.2;
+  --f-leading-base:  1.5;
+  --f-leading-loose: 1.7;
+
+  /* ── Spacing (4px base grid) ──────────────────────────────────── */
+  --f-space-1:  4px;
+  --f-space-2:  8px;
+  --f-space-3:  12px;
+  --f-space-4:  16px;
+  --f-space-5:  20px;
+  --f-space-6:  24px;
+  --f-space-8:  32px;
+  --f-space-10: 40px;
+  --f-space-12: 48px;
+  --f-space-16: 64px;
+
+  /* ── Border radius ────────────────────────────────────────────── */
+  --f-r2:    2px;    /* micro: badges inside inputs        */
+  --f-r4:    4px;    /* interactive: buttons, inputs, cards */
+  --f-r6:    6px;    /* medium: dropdowns                  */
+  --f-r8:    8px;    /* containers: panels, modals, menus  */
+  --f-r12:   12px;   /* large surfaces                     */
+  --f-rpill: 999px;  /* pills, chips, avatars              */
+
+  /* ── Elevation (directional + ambient, Fluent 2 model) ────────── */
+  --f-shadow2:  0 1px 2px rgba(0,0,0,.14),  0 0 2px rgba(0,0,0,.12);
+  --f-shadow4:  0 2px 4px rgba(0,0,0,.14),  0 0 2px rgba(0,0,0,.12);
+  --f-shadow8:  0 4px 8px rgba(0,0,0,.14),  0 0 2px rgba(0,0,0,.12);
+  --f-shadow16: 0 8px 16px rgba(0,0,0,.14), 0 0 2px rgba(0,0,0,.12);
+  --f-shadow28: 0 14px 28px rgba(0,0,0,.22),0 0 8px rgba(0,0,0,.18);
+  --f-shadow64: 0 32px 64px rgba(0,0,0,.24),0 0 8px rgba(0,0,0,.20);
+
+  /* ── Motion ───────────────────────────────────────────────────── */
+  --f-ease:        cubic-bezier(.33,0,.67,1);
+  --f-ease-out:    cubic-bezier(0,0,.2,1);
+  --f-ease-in:     cubic-bezier(.4,0,1,1);
+  --f-ease-spring: cubic-bezier(.16,1,.3,1);
+  --f-fast:   150ms;
+  --f-normal: 200ms;
+  --f-slow:   300ms;
+
+  /* ── Z-index scale ────────────────────────────────────────────── */
+  --f-z-base:     1;
+  --f-z-sticky:   100;
+  --f-z-dropdown: 200;
+  --f-z-overlay:  300;
+  --f-z-modal:    400;
+  --f-z-toast:    500;
+  --f-z-tooltip:  600;
+
+  /* ── Layout ───────────────────────────────────────────────────── */
+  --f-topbar-h:  48px;
+  --f-sidebar-w: 260px;
+  --f-max-width: 1280px;
+
+  /* ── Status colours (shared across all apps) ──────────────────── */
+  --f-success:    #107c10;
+  --f-success-bg: rgba(16,124,16,.08);
+  --f-warning:    #ca5010;
+  --f-warning-bg: rgba(202,80,16,.08);
+  --f-danger:     #c50f1f;
+  --f-danger-bg:  rgba(197,15,31,.08);
+  --f-info:       #0078d4;
+  --f-info-bg:    rgba(0,120,212,.08);
+
+  /* ── Brand (default: Microsoft Blue — override per app) ───────── */
+  --f-brand:     #0078d4;
+  --f-brand-h:   #106ebe;
+  --f-brand-a:   #005a9e;
+  --f-brand-bg:  #eff6fc;
+  --f-brand-bg2: rgba(0,120,212,.08);
+  --f-brand-fg:  #ffffff;  /* text colour on top of --f-brand */
+}
+
+/* ── Light theme (default) ──────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+  --f-bg1: #ffffff;
+  --f-bg2: #f5f5f5;
+  --f-bg3: #ebebeb;
+  --f-bg4: #e0e0e0;
+
+  --f-fg1: #242424;
+  --f-fg2: #424242;
+  --f-fg3: #616161;
+  --f-fg4: #898989;
+
+  --f-stroke1: #d1d1d1;
+  --f-stroke2: #e0e0e0;
+
+  --f-overlay: rgba(0,0,0,.4);
+}
+
+/* ── Dark theme ─────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --f-bg1: #141414;
+  --f-bg2: #1f1f1f;
+  --f-bg3: #292929;
+  --f-bg4: #333333;
+
+  --f-fg1: #ffffff;
+  --f-fg2: #d6d6d6;
+  --f-fg3: #adadad;
+  --f-fg4: #707070;
+
+  --f-stroke1: #404040;
+  --f-stroke2: #2e2e2e;
+
+  --f-overlay: rgba(0,0,0,.6);
+
+  /* Status colours lift for contrast on dark surfaces */
+  --f-success: #54b054;
+  --f-warning: #ffc83d;
+  --f-danger:  #f1707b;
+  --f-info:    #4fa3e3;
+
+  /* Shadows go deeper on dark backgrounds */
+  --f-shadow2:  0 1px 2px rgba(0,0,0,.5),  0 0 2px rgba(0,0,0,.4);
+  --f-shadow4:  0 2px 4px rgba(0,0,0,.5),  0 0 2px rgba(0,0,0,.4);
+  --f-shadow8:  0 4px 8px rgba(0,0,0,.5),  0 0 2px rgba(0,0,0,.4);
+  --f-shadow16: 0 8px 16px rgba(0,0,0,.5), 0 0 2px rgba(0,0,0,.4);
+  --f-shadow28: 0 14px 28px rgba(0,0,0,.6),0 0 8px rgba(0,0,0,.5);
+  --f-shadow64: 0 32px 64px rgba(0,0,0,.7),0 0 8px rgba(0,0,0,.6);
+}
